@@ -70,8 +70,7 @@ def send_email(body: str):
 
         # 连接 SMTP 服务器
         server = smtplib.SMTP(SMTP_SERVER, int(SMTP_PORT))
-        if int(SMTP_PORT) == 587:
-            server.starttls()  # 启用 TLS 加密
+        server.starttls()  # 启用 TLS 加密
         server.login(EMAIL, PASSWORD)  # 登录 SMTP 服务器
         server.sendmail(EMAIL, EMAIL, msg.as_string())  # 发送邮件
         server.quit()  # 关闭连接
