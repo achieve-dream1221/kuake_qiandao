@@ -69,8 +69,11 @@ def send_email(body: str):
         msg.attach(MIMEText(body, "plain"))
 
         # 连接 SMTP 服务器
-        server = smtplib.SMTP(SMTP_SERVER, int(SMTP_PORT))
-        server.starttls()  # 启用 TLS 加密
+        if SMTP_PORT == 587:
+            server = smtplib.SMTP(SMTP_SERVER, int(SMTP_PORT))
+            server.starttls()  # 启用 TLS 加密
+        elif SMTP_PORT == 465:
+            server = smtplib.SMTP_SSL(SMTP_SERVER, int(SMTP_PORT))
         server.login(EMAIL, PASSWORD)  # 登录 SMTP 服务器
         server.sendmail(EMAIL, EMAIL, msg.as_string())  # 发送邮件
         server.quit()  # 关闭连接
